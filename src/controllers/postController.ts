@@ -17,7 +17,7 @@ interface HealthMetrics {
 
 class PostController {
   private readonly UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'post-images');
-  private readonly SERVER_URL = process.env.SERVER_URL || `http://localhost:${process.env.PORT || 5000}`;
+  private readonly SERVER_URL = process.env.SERVER_URL || `http://localhost:${process.env.PORT || 4000}`;
 
   constructor() {
     // Create uploads directory if it doesn't exist
