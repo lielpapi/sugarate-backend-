@@ -58,14 +58,16 @@ const io = new Server(httpServer, {
   }
 });
 
+// Initialize image upload directory
 ImageUtils.initialize()
   .then(() => {
     console.log('✓ Image upload directory initialized');
   })
   .catch(error => {
-    console.error('Failed to initialize image upload directory:', error);
+    console.error('❌ Failed to initialize image upload directory:', error);
   });
 
+// Session middleware (add this before other middleware)
 app.use(session({
   secret: process.env.SESSION_SECRET!,
   resave: false,
@@ -76,6 +78,7 @@ app.use(session({
   }
 }));
 
+// Other middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors({
@@ -83,10 +86,13 @@ app.use(cors({
   credentials: true
 }));
 
+// Serve static files
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+// Swagger Setup
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/messages', messageRoutes);
@@ -94,8 +100,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/ai', aiChatRoutes);
 app.use('/api/auth/google', googleAuthRouter);
 
+// Setup socket handlers
 setupSocketHandlers(io);
 
+// Database connection
 mongoose.connect(process.env.MONGODB_URI!)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
