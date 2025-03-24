@@ -16,7 +16,7 @@ interface AuthenticatedRequest extends Request {
 
 class UserController {
   private readonly UPLOAD_DIR = 'uploads/profile-images';
-  private readonly SERVER_URL = process.env.SERVER_URL || 'http://localhost:5000';
+  private readonly SERVER_URL = process.env.SERVER_URL || 'http://localhost:4000';
 
   constructor() {
     // Create uploads directory if it doesn't exist

@@ -6,7 +6,7 @@ import crypto from 'crypto';
 export class ImageUtils {
   private static UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'profile-images');
   private static getServerUrl(): string {
-    const port = process.env.PORT || 5000;
+    const port = process.env.PORT || 4000;
     return process.env.SERVER_URL || `http://localhost:${port}`;
   }
 
